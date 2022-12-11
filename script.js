@@ -7,10 +7,7 @@ const div = document.querySelector("#text");
 
  
 
-const renderAdvice = (data) => {
-    adviceID.innerText = `Advice ID: ${data.slip.id}`;
-    adviceText.innerText = `"${data.slip.advice}"`
-};
+
 const renderSpinner = () => {
     const html = `
 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -18,7 +15,7 @@ const renderSpinner = () => {
     div.innerHTML = html  
 };
  
-const TIMEOUT_SEC = 2;
+ 
 function disableButton() {
     quotesGenerator.disabled = true;
     setTimeout(function () { quotesGenerator.disabled = false; },  3000);
@@ -28,6 +25,7 @@ const fetchAdvice = async () => {
     const res = await fetch('https://api.adviceslip.com/advice');
     const data = await res.json();
     console.log(res);
+    console.log(data);
     if (res.ok === true) {
         quotesGenerator.addEventListener('click', renderAdvice(data))
         quotesGenerator.addEventListener('click', renderSpinner());
@@ -37,6 +35,10 @@ const fetchAdvice = async () => {
     }  
 };
 
+const renderAdvice = (data) => {
+    adviceID.innerText = `Advice ID: ${data.slip.id}`;
+    adviceText.innerText = `"${data.slip.advice}"`
+};
 
 quotesGenerator.addEventListener('click', function () {
     renderSpinner(); 
